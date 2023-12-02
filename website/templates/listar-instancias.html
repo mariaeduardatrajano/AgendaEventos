@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% block content %}
+      <h1>Lista de {{ Model | capfirst }}</h1>
+      {% for instance in objects %}
+        <ul>
+          <li><a href="detalhes/{{ instance.id }}">{{ instance.nome }}</a></li>
+        </ul>
+      {% endfor %}
+
+      <button class="btn btn-primary" onclick="location.href='{{ Model }}/adicionar'">Adicionar</button>
+      <button class="btn btn-primary" onclick="location.href='/agenda'">Voltar</button>
+    {% endblock %}
+  </div>
+</body>
+</html>
