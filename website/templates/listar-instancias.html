@@ -11,7 +11,7 @@
       <h1>Lista de {{ Model | capfirst }}</h1>
       {% for instance in objects %}
         <ul>
-          <li><a href="detalhes/{{ instance.id }}">{{ instance.nome }}</a></li>
+          <li><a href="{{ Model }}/detalhes/{{ instance.id }}">{{ instance.nome }}</a></li>
         </ul>
       {% endfor %}
 

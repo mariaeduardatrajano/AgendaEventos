@@ -1,8 +1,25 @@
 from django.shortcuts import render
 from .models import Evento, Organizador, Participante, Local
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
+from django.db.models import ManyToManyField
+
+def get_field_values(instance): # Pegando os campos dos modelos
+  field_values = {}
+  fields = instance._meta.get_fields(include_hidden=True)
+
+  for field in fields:
+    try:
+      if isinstance(field, ManyToManyField):
+        related_objects = getattr(instance, field.name).all()
+        field_values[field.name] = ', '.join(str(obj) for obj in related_objects)
+      else:
+        field_values[field.name] = getattr(instance, field.name)
+    except Exception:
+        pass
+
+  return field_values
 
 class index(View):
   def get(self, request):
@@ -74,4 +91,44 @@ class local_add(CreateView):
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['title'] = 'Adicionando Local'
+    return context
+
+class evento_detail(DetailView):
+  model = Evento
+  template_name = 'instancias-detalhes.html'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)   
+    context['object'] = get_field_values(context['object'])
+    context['Model'] = 'eventos'
+    return context
+
+class organizador_detail(DetailView):
+  model = Organizador
+  template_name = 'instancias-detalhes.html'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['object'] = get_field_values(context['object'])
+    context['Model'] = 'organizadores'
+    return context
+
+class participante_detail(DetailView):
+  model = Participante
+  template_name = 'instancias-detalhes.html'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['object'] = get_field_values(context['object'])
+    context['Model'] = 'participantes'
+    return context
+
+class local_detail(DetailView):
+  model = Local
+  template_name = 'instancias-detalhes.html'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['object'] = get_field_values(context['object'])
+    context['Model'] = 'locais'
     return context

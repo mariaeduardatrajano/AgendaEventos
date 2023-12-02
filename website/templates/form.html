@@ -14,8 +14,9 @@
       {% csrf_token %}
       {{ form.as_p }}
       <button class="btn btn-primary" type="submit">Salvar</button>
-      <button class="btn btn-primary" onclick="location.href='/agenda/{{ Model }}'">Voltar</button>
     </form>
+
+    <button class="btn btn-primary" onclick="location.href='/agenda'">Voltar</button>
   {% endblock %}
 </body>
 </html>
