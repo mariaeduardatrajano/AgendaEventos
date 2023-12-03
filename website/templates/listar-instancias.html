@@ -1,23 +1,13 @@
 {% extends 'index.html' %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    {% block content %}
-      <h1>Lista de {{ Model | capfirst }}</h1>
-      {% for instance in objects %}
-        <ul>
-          <li><a href="{{ Model }}/detalhes/{{ instance.id }}">{{ instance.nome }}</a></li>
-        </ul>
-      {% endfor %}
+{% block content %}
+  <h1 class="mb-3 mt-3">Lista de {{ Model | capfirst }}</h1>
+  {% for instance in objects %}
+    <ul class="list-group">
+      <li class="list-group-item mt-3 mb-3"><a href="{{ Model }}/detalhes/{{ instance.id }}">{{ instance.nome }}</a></li>
+    </ul>
+  {% endfor %}
 
-      <button class="btn btn-primary" onclick="location.href='{{ Model }}/adicionar'">Adicionar</button>
-      <button class="btn btn-primary" onclick="location.href='/agenda'">Voltar</button>
-    {% endblock %}
-  </div>
-</body>
-</html>
+  <button class="btn btn-primary" onclick="location.href='{{ Model }}/adicionar'">Adicionar</button>
+  <button class="btn btn-primary" onclick="location.href='/agenda'">Voltar</button>
+{% endblock %}

@@ -1,22 +1,14 @@
 {% extends 'index.html' %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }}</title>
-</head>
-<body>
-  {% block content %}
-    <h1>{{ title }}</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button class="btn btn-primary" type="submit">Salvar</button>
-    </form>
+{% block title %} {{ title }} {% endblock %}
 
-    <button class="btn btn-primary" onclick="location.href='/agenda'">Voltar</button>
-  {% endblock %}
-</body>
-</html>
+{% block content %}
+  <h1 class="mb-4 mt-3">{{ title }}</h1>
+  <form class="form-control mt-4" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Salvar</button>
+  </form>
+
+  <button class="btn btn-primary mt-3" onclick="location.href='/agenda'">Voltar</button>
+{% endblock %}
