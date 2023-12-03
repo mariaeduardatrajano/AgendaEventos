@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Evento, Organizador, Participante, Local
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import ManyToManyField
 
 def get_field_values(instance): # Pegando os campos dos modelos
@@ -132,3 +132,67 @@ class local_detail(DetailView):
     context['object'] = get_field_values(context['object'])
     context['Model'] = 'locais'
     return context
+
+class evento_update(UpdateView):
+  model = Evento
+  fields = ['nome', 'data_hora', 'organizadores', 'participantes', 'local','descricao']
+  template_name = 'form.html'
+  success_url = '/agenda/eventos'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['title'] = 'Atualizando Evento'
+    return context
+
+class organizador_update(UpdateView):
+  model = Organizador
+  fields = ['nome', 'idade']
+  template_name = 'form.html'
+  success_url = '/agenda/organizadores'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['title'] = 'Atualizando Organizador'
+    return context
+
+class participante_update(UpdateView):
+  model = Participante
+  fields = ['nome', 'idade']
+  template_name = 'form.html'
+  success_url = '/agenda/participantes'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['title'] = 'Atualizando Participante'
+    return context
+
+class local_update(UpdateView):
+  model = Local
+  fields = ['nome', 'endereco', 'capacidade']
+  template_name = 'form.html'
+  success_url = '/agenda/locais'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['title'] = 'Atualizando Local'
+    return context
+
+class evento_delete(DeleteView):
+  model = Evento
+  success_url = '/agenda/eventos'
+  template_name = 'deletar-instancia.html'
+
+class organizdaor_delete(DeleteView):
+  model = Organizador
+  success_url = '/agenda/organizadores'
+  template_name = 'deletar-instancia.html'
+
+class participante_delete(DeleteView):
+  model = Participante
+  success_url = '/agenda/participantes'
+  template_name = 'deletar-instancia.html'
+
+class local_delete(DeleteView):
+  model = Local
+  success_url = '/agenda/locais'
+  template_name = 'deletar-instancia.html'

@@ -15,7 +15,7 @@
         <li>{{ field }}: {{ value }}</li>
       </ul>
     {% endfor %}
-    <button onclick="location.href='/agenda/{{ model }}/editar/{{object.id}}'">Editar</button>
+    <button onclick="location.href='/agenda/{{ Model }}/editar/{{object.id}}'">Editar</button>
     <button onclick="location.href='/agenda/{{ Model }}/deletar/{{object.id}}'">Deletar</button>
     <button onclick="location.href='/agenda/{{ Model }}'">Voltar</button>
   {% endblock %}
